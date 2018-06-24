@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BoardComponents</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+
+<div style="display: flex">
+    <div class="region_col">
+        <div class="region_enamy">
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="display: block; background-color: brown">
+                <div class="card_til">지역1</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+
+        <div class="region_mine">
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="region_col">
+        <div class="region_enamy">
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="display: block; background-color: brown">
+                <div class="card_til">지역1</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+
+        <div class="region_mine">
+            <div class="card" style="display: block">
+                <div class="card_til">Red 4</div>
+                <div class="card_img_big"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="game-board" style="margin-top: 10px">
+    <my-hand :cards="myHand"></my-hand>
+</div>
+
+<template id="my-hand">
+    <div class="hand" style="display: block">
+        <card-battleline v-for="card in cards"
+                         :card="card"
+                         :key="card.id"></card-battleline>
+    </div>
+</template>
+
+<template id="card-battleline">
+    <div class="card" style="margin-left: 5px;">
+        <card-title :title="card.name"></card-title>
+        <card-img-big :imgUrl="card.imgUrl"></card-img-big>
+    </div>
+</template>
+
+<template id="card-til">
+    <div class="card_til">{{ title }}</div>
+</template>
+
+<template id="card-img-big">
+    <div class="card_img_big">
+        {{ imgUrl }}
+    </div>
+</template>
+
+
+<script>
+
+    Vue.component('my-hand', {
+        props: ['cards'],
+        template: '#my-hand',
+        mounted : function () {
+            console.log(this.cards);
+        }
+    });
+
+    Vue.component('card-battleline', {
+        props: ['card'],
+        template: '#card-battleline',
+        mounted : function () {
+            console.log(this.card);
+        }
+
+    });
+
+    Vue.component('card-title', {
+        props : ['title'],
+        template: '#card-til'
+    });
+    Vue.component('card-img', {
+        template: '<div class="card_img">\ncard_img\n</div>\n'
+    });
+    Vue.component('card-img-big', {
+        props : ['imgUrl'],
+        template: '#card-img-big'
+    });
+
+    Vue.component('card-disc', {
+        template: '<div class="card_disc">\n열심히 일함\n</div>'
+    });
+
+
+    var app = new Vue({
+        el: '#game-board',
+        data : {
+            card : { name : "Red 4", imgUrl : "hello"},
+            myHand : [
+                { id : 1, name : "Red 4", imgUrl : "hello"},
+                { id : 2, name : "Red 3", imgUrl : "hello"},
+                { id : 3, name : "Red 1", imgUrl : "hello"}
+            ],
+            msg : "hell"
+        }
+    })
+
+</script>
+</body>
+</html>
