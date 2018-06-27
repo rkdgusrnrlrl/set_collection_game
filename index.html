@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>BoardComponents</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="./js/Sortable.js"></script>
+    <script type="text/javascript" src="./js/vuedraggable.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
@@ -87,8 +89,16 @@
 <!-- 핸드 -->
 <div id="game-board" style="margin-top: 10px">
     <my-hand :cards="myHand"></my-hand>
+    <draggable element="ul" class="dragArea" :list="list1" >
+        <li v-for="(element, index) in list1"  >
+            {{element.name}} {{index}}
+        </li>
+    </draggable>
 </div>
 <!-- //핸드 -->
+
+
+
 
 <!-- Vue 템플릿 -->
 
@@ -158,7 +168,11 @@
                 { id : 1, name : "Red 4", imgUrl : "hello"},
                 { id : 2, name : "Red 3", imgUrl : "hello"},
                 { id : 3, name : "Red 1", imgUrl : "hello"}
-            ]
+            ],
+            list1:[{name:"John", id:1},
+                {name:"Joao", id:2},
+                {name:"Jean", id:3},
+                {name:"Gerard", id:4} ],
         }
     })
 
