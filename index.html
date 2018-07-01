@@ -89,8 +89,14 @@
 <!-- 핸드 -->
 <div id="game-board" style="margin-top: 10px">
     <my-hand :cards="myHand"></my-hand>
-    <draggable element="ul" class="dragArea" :list="list1" >
+    <draggable element="ul" class="dragArea" :list="list1" :options="{group:'people'}" style="border: 1px solid black">
         <li v-for="(element, index) in list1"  >
+            {{element.name}} {{index}}
+        </li>
+    </draggable>
+
+    <draggable element="ul" class="dragArea" :list="list2" :options="{group:'people'}" style="border: 1px solid black">
+        <li v-for="(element, index) in list2"  >
             {{element.name}} {{index}}
         </li>
     </draggable>
@@ -173,6 +179,9 @@
                 {name:"Joao", id:2},
                 {name:"Jean", id:3},
                 {name:"Gerard", id:4} ],
+            list2 : [
+                {name:"qJoao", id:2},
+            ]
         }
     })
 
