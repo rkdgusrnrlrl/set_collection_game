@@ -3,6 +3,7 @@
     <Card :card="card"/>
 
     <MyHand :cards="cards"/>
+    <CardCol :cards="cardrs"/>
 
     <draggable element="ul" class="dragArea" :list="list1" :options="{group:'people'}" style="border: 1px solid black">
       <li v-for="(element, index) in list1" :key="element.id">
@@ -21,6 +22,7 @@
 <script>
 import Card from './components/Card'
 import MyHand from './components/MyHand'
+import CardCol from './components/CardCol'
 import draggable from 'vuedraggable'
 
 export default {
@@ -28,6 +30,7 @@ export default {
   components: {
     Card,
     MyHand,
+    CardCol,
     draggable
   },
   data() {
@@ -36,6 +39,11 @@ export default {
               {name:"Joao", id:6, imgUrl : "img"},
               {name:"Joao", id:7, imgUrl : "img"},
               {name:"Joao", id:8, imgUrl : "img"}
+          ],
+          cardrs : [
+              {name:"Red 1", id:9, imgUrl : "img"},
+              {name:"Red 2", id:10, imgUrl : "img"},
+              {name:"Red 3", id:11, imgUrl : "img"}
           ],
           card : {name:"Joao", id:2, imgUrl : "img"},
           list1:[{name:"John", id:1},
