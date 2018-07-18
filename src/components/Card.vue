@@ -38,6 +38,7 @@
     width: 150px;
     height: 190px;
     background-color: cornflowerblue;
-    display: inline-block
+    display: inline-block;
+    border: 1px solid black;
   }
 </style>
