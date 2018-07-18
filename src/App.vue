@@ -5,17 +5,7 @@
     <MyHand :cards="cards"/>
     <CardCol :cards="cardrs"/>
 
-    <draggable element="ul" class="dragArea" :list="list1" :options="{group:'people'}" style="border: 1px solid black">
-      <li v-for="(element, index) in list1" :key="element.id">
-        {{element.name}} {{index}}
-      </li>
-    </draggable>
-
-    <draggable element="ul" class="dragArea" :list="list2" :options="{group:'people'}" style="border: 1px solid black">
-      <li v-for="(element, index) in list2" :key="element.id">
-        {{element.name}} {{index}}
-      </li>
-    </draggable>
+    <MyHand :cards="cards"/>
   </div>
 </template>
 

@@ -1,24 +1,32 @@
 <template>
-  <div class="card" :key="card.id">
-    <CardTitle :title="card.name"/>
-    <CardImgBig :imgUrl="card.imgUrl"/>
-  </div>
+    <drag class="card" :key="card.id" :style="position"
+          :transfer-data="{ item: card, list: parent}">
+        <CardTitle :title="card.name"/>
+        <CardImgBig :imgUrl="card.imgUrl"/>
+    </drag>
 </template>
 
 <script>
-import CardTitle from './CardTitle'
-import CardImgBig from './CardImgBig'
+    import CardTitle from './CardTitle'
+    import CardImgBig from './CardImgBig'
+    import {Drag, Drop} from 'vue-drag-drop'
 
-export default {
-  name: 'Card',
-  props: {
-    card: Object
-  },
-  components : {
-      CardTitle,
-      CardImgBig
-  }
-}
+    export default {
+        name: 'Card',
+        props: {
+            card: Object,
+            index : Number,
+            position : Object,
+            parent : Array
+        },
+        components : {
+            CardTitle,
+            CardImgBig,
+            Drag,
+            Drop
+        }
+    }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

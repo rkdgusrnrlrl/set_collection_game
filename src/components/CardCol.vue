@@ -1,9 +1,11 @@
 <template>
-    <drop class="hand" style="display: block" @drop="drop(cards, ...arguments)">
-        <Card v-for="card in cards"
+    <drop class="card_col" style="border: 1px solid black" @drop="drop(cards, ...arguments)">
+        <Card v-for="(card, index) in cards"
+            :position="{position: 'relative', display: 'block', zIndex : index, top : index * -180 + 'px'}"
             :parent="cards"
             :card="card"
-            :key="card.id"/>
+            :index="index"
+            :key="card.id"></Card>
     </drop>
 </template>
 
@@ -11,14 +13,13 @@
     import Card from './Card'
     import {Drag, Drop} from 'vue-drag-drop'
 
-
     export default {
-        name: "MyHand",
+        name: "CardCol",
         props: ['cards'],
         components : {
             Card,
-            Drag,
-            Drop
+            Drop,
+            Drag
         },
         methods : {
             drop(toList, data) {
@@ -34,5 +35,7 @@
 </script>
 
 <style scoped>
-
+    .card_col {
+        height: 300px;
+    }
 </style>
