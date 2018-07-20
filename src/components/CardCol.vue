@@ -12,6 +12,7 @@
 <script>
     import Card from './Card'
     import {Drag, Drop} from 'vue-drag-drop'
+    import _ from 'lodash'
 
     export default {
         name: "CardCol",
@@ -24,8 +25,12 @@
         methods : {
             drop(toList, data) {
                 const fromList = data.list;
+
+                let state = prompt("카드 상태?")
+
                 if (fromList) {
-                    toList.push(data.item);
+                    const card = _.assignIn({}, data.item, {state});
+                    toList.push(card);
                     fromList.splice(fromList.indexOf(data.item), 1);
                     toList.sort((a, b) => a > b);
                 }

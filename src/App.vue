@@ -38,7 +38,8 @@ for (let i = 0; i < CARD_COLORS.length; i++) {
             id : CARD_COLORS[i]+j,
             color : CARD_COLORS[i], number : j,
             name : `${CARD_COLORS[i]} ${j}`,
-            imgUrl : `${CARD_COLORS[i]} ${j}`
+            imgUrl : `${CARD_COLORS[i]} ${j}`,
+            state : "front"
         })
     }
 }
