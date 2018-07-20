@@ -1,5 +1,5 @@
 <template>
-    <drop class="hand" style="display: block" @drop="drop(cards, ...arguments)">
+    <drop class="card_row" @drop="drop(cards, ...arguments)">
         <Card v-for="card in cards"
             :parent="cards"
             :card="card"
@@ -34,5 +34,9 @@
 </script>
 
 <style scoped>
-
+.card_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap : wrap;
+}
 </style>

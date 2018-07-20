@@ -1,7 +1,7 @@
 <template>
     <drop class="card_col" style="border: 1px solid black" @drop="drop(cards, ...arguments)">
         <Card v-for="(card, index) in cards"
-            :position="{position: 'relative', display: 'block', zIndex : index, top : index * -180 + 'px'}"
+            :position="{position: 'absolute', display: 'block', zIndex : index, top : index * 40 + 'px'}"
             :parent="cards"
             :card="card"
             :index="index"
@@ -36,6 +36,12 @@
 
 <style scoped>
     .card_col {
-        height: 300px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width : 185px;
+        min-height: 300px;
+        height: 100%;
+        border: 1px solid black;
     }
 </style>
