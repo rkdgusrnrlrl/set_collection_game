@@ -1,5 +1,7 @@
 <template>
-    <drop class="card_col" style="border: 1px solid black" @drop="drop(cards, ...arguments)">
+    <drop class="card_col noselect" style="border: 1px solid black"
+          :draggable="false"
+          @drop="drop(cards, ...arguments)">
         <Card v-for="(card, index) in cards"
             :position="{position: 'absolute', display: 'block', zIndex : index, top : index * 40 + 'px'}"
             :parent="cards"
@@ -69,5 +71,14 @@
         min-height: 300px;
         height: 100%;
         border: 1px solid black;
+    }
+    .noselect {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
     }
 </style>
