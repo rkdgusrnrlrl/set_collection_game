@@ -14,10 +14,10 @@
       <MyHand :cards="myhand"/>
 
       <div style="display: flex; flex-direction: row">
-          <CardCol :cards="region1"/>
-          <CardCol :cards="region2"/>
-          <CardCol :cards="region3"/>
-          <CardCol :cards="region4"/>
+          <CardCol :cards="region1" :player="player"/>
+          <CardCol :cards="region2" :player="player"/>
+          <CardCol :cards="region3" :player="player"/>
+          <CardCol :cards="region4" :player="player"/>
       </div>
   </div>
 </template>
@@ -58,7 +58,8 @@ export default {
   data() {
       return {
           player : {
-              isDraw : false
+              isDraw : false,
+              action : 2
           },
           cards : [
               {name:"Joao", id:6, imgUrl : "img"},

@@ -16,7 +16,10 @@
 
     export default {
         name: "CardCol",
-        props: ['cards'],
+        props: {
+            cards : Array,
+            player : Object
+        },
         components : {
             Card,
             Drop,
@@ -29,10 +32,28 @@
                 let state = prompt("카드 상태?")
 
                 if (fromList) {
-                    const card = _.assignIn({}, data.item, {state});
-                    toList.push(card);
-                    fromList.splice(fromList.indexOf(data.item), 1);
-                    toList.sort((a, b) => a > b);
+                    //앞 : front, 뒤 back
+                    if (state === "front") {
+                        if (this.player.action >= 1) {
+                            const card = _.assignIn({}, data.item, {state});
+                            toList.push(card);
+                            fromList.splice(fromList.indexOf(data.item), 1);
+                            toList.sort((a, b) => a > b);
+                            this.player.action -= 1
+                        } else {
+                            alert("액션을 다 소모 하셨습니다.")
+                        }
+                    } else if (state === "back") {
+                        if (this.player.action >= 2) {
+                            const card = _.assignIn({}, data.item, {state});
+                            toList.push(card);
+                            fromList.splice(fromList.indexOf(data.item), 1);
+                            toList.sort((a, b) => a > b);
+                            this.player.action -= 2
+                        } else {
+                            alert("액션을 다 소모 하셨습니다.")
+                        }
+                    }
                 }
             }
         }
