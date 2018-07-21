@@ -41,7 +41,7 @@
                             toList.sort((a, b) => a > b);
                             this.player.action -= 1
                         } else {
-                            alert("액션을 다 소모 하셨습니다.")
+                            alert(`남은 액션이 부족합니다.(남은 액션 : ${this.player.action})`)
                         }
                     } else if (state === "back") {
                         if (this.player.action >= 2) {
@@ -51,7 +51,7 @@
                             toList.sort((a, b) => a > b);
                             this.player.action -= 2
                         } else {
-                            alert("액션을 다 소모 하셨습니다.")
+                            alert(`남은 액션이 부족합니다.(남은 액션 : ${this.player.action})`)
                         }
                     }
                 }
