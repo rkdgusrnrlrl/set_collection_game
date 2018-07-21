@@ -9,12 +9,18 @@
         name: "CardDumy",
         props : {
             cardSpace : Array,
-            cardDumy : Array
+            cardDumy : Array,
+            player : Object
         },
         methods : {
             drawCardTo() {
-                while (this.cardSpace.length < 5) {
-                    this.cardSpace.push(this.cardDumy.pop())
+                if (this.player.isDraw) {
+                    alert("이미 드로우 했습니다.")
+                } else {
+                    while (this.cardSpace.length < 5) {
+                        this.cardSpace.push(this.cardDumy.pop())
+                    }
+                    this.player.isDraw = true;
                 }
             }
         }

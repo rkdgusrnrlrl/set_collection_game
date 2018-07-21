@@ -10,7 +10,7 @@
     <CardCol :cards="region1"/>
     -->
 
-      <CardDumy :cardSpace="myhand" :cardDumy="dumy"/>
+      <CardDumy :cardSpace="myhand" :cardDumy="dumy" :player="player"/>
       <MyHand :cards="myhand"/>
 
       <div style="display: flex; flex-direction: row">
@@ -57,6 +57,9 @@ export default {
   },
   data() {
       return {
+          player : {
+              isDraw : false
+          },
           cards : [
               {name:"Joao", id:6, imgUrl : "img"},
               {name:"Joao", id:7, imgUrl : "img"},
