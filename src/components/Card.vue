@@ -1,8 +1,10 @@
 <template>
     <drag class="card" :key="card.id" :style="position"
           :transfer-data="{ item: card, list: parent}">
-        <CardTitle :title="card.name"/>
-        <CardImgBig :imgUrl="card.imgUrl"/>
+
+        <CardTitle v-if="card.state == 'front'" :title="card.name"/>
+        <CardImgBig v-if="card.state == 'front'" :imgUrl="card.imgUrl"/>
+
     </drag>
 </template>
 

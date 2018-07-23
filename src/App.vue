@@ -10,14 +10,14 @@
     <CardCol :cards="region1"/>
     -->
 
-      <CardDumy :cardSpace="myhand" :cardDumy="dumy"/>
+      <CardDumy :cardSpace="myhand" :cardDumy="dumy" :player="player"/>
       <MyHand :cards="myhand"/>
 
       <div style="display: flex; flex-direction: row">
-          <CardCol :cards="region1"/>
-          <CardCol :cards="region2"/>
-          <CardCol :cards="region3"/>
-          <CardCol :cards="region4"/>
+          <CardCol :cards="region1" :player="player"/>
+          <CardCol :cards="region2" :player="player"/>
+          <CardCol :cards="region3" :player="player"/>
+          <CardCol :cards="region4" :player="player"/>
       </div>
   </div>
 </template>
@@ -38,7 +38,8 @@ for (let i = 0; i < CARD_COLORS.length; i++) {
             id : CARD_COLORS[i]+j,
             color : CARD_COLORS[i], number : j,
             name : `${CARD_COLORS[i]} ${j}`,
-            imgUrl : `${CARD_COLORS[i]} ${j}`
+            imgUrl : `${CARD_COLORS[i]} ${j}`,
+            state : "front"
         })
     }
 }
@@ -56,6 +57,10 @@ export default {
   },
   data() {
       return {
+          player : {
+              isDraw : false,
+              action : 2
+          },
           cards : [
               {name:"Joao", id:6, imgUrl : "img"},
               {name:"Joao", id:7, imgUrl : "img"},
