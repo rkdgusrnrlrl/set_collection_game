@@ -10,10 +10,9 @@
           <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
           <MyHand :cards="players[0].hand" :player="players[0]"/>
       </div>
-      <button @click="turnEnd">턴종료</button>
-
-
-  </div>
+      <button @click="turnEnd(players[0])">자신 턴종료</button>
+      <button @click="turnEnd(players[1])">상대방 턴종료</button>
+      </div>
 </template>
 
 <script>
@@ -110,7 +109,9 @@ export default {
     },
     created () {
         this.$on('turnStart', (player) => {
-            alert(`hello ${player.id}`)
+            if (player.id === this.players[0].id) {
+                alert(`이제 당신 턴입니다.`)
+            }
         })
 
         this.$on('turnEnd', (player) => {
@@ -130,10 +131,15 @@ export default {
         })
     },
     methods : {
-        turnEnd() {
+        turnEnd(player) {
+            if (player.state !== "READY") {
+                alert("다른 사람 턴입니다.")
+                return
+            }
+
             const isOk = confirm("턴을 종료 하시겠습니까??")
             if (isOk) {
-                this.$emit('turnEnd', this.players[0])
+                this.$emit('turnEnd', player)
             }
         }
     }
