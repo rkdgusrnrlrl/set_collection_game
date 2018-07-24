@@ -10,14 +10,13 @@
     <CardCol :cards="region1"/>
     -->
 
-      <CardDumy :cardSpace="myhand" :cardDumy="dumy" :player="player"/>
-      <MyHand :cards="myhand"/>
+      <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
+      <MyHand :cards="players[0].hand"/>
 
       <div style="display: flex; flex-direction: row">
-          <CardCol :cards="region1" :player="player"/>
-          <CardCol :cards="region2" :player="player"/>
-          <CardCol :cards="region3" :player="player"/>
-          <CardCol :cards="region4" :player="player"/>
+          <CardCol v-for="flag in players[0].flags"
+                   :cards="flag"
+                   :player="players[0]"/>
       </div>
   </div>
 </template>
@@ -57,10 +56,35 @@ export default {
   },
   data() {
       return {
-          player : {
-              isDraw : false,
-              action : 2
+          game : {
+              turn : 0
           },
+          players : [
+              {
+                  isDraw : false,
+                  action : 2,
+                  state : "READY",
+                  hand : [],
+                  flags : [
+                      [],
+                      [],
+                      [],
+                      []
+                  ]
+              },
+              {
+                  isDraw : true,
+                  action : 0,
+                  state : "DONE",
+                  hand : [],
+                  flags : [
+                      [],
+                      [],
+                      [],
+                      []
+                  ]
+              }
+          ],
           cards : [
               {name:"Joao", id:6, imgUrl : "img"},
               {name:"Joao", id:7, imgUrl : "img"},
