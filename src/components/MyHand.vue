@@ -1,9 +1,11 @@
 <template>
-    <drop class="card_row" @drop="drop(cards, ...arguments)">
+    <drop class="card_row noselect" @drop="drop(cards, ...arguments)">
         <Card v-for="card in cards"
             :parent="cards"
             :card="card"
-            :key="card.id"/>
+            :key="card.id"
+            :isMyTurn="isDraggable()"
+        />
     </drop>
 </template>
 
@@ -14,7 +16,7 @@
 
     export default {
         name: "MyHand",
-        props: ['cards'],
+        props: ['cards', 'player'],
         components : {
             Card,
             Drag,
@@ -28,6 +30,9 @@
                     fromList.splice(fromList.indexOf(data.item), 1);
                     toList.sort((a, b) => a > b);
                 }
+            },
+            isDraggable() {
+                return this.player.state === "READY"
             }
         }
     }
@@ -38,5 +43,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap : wrap;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 </style>

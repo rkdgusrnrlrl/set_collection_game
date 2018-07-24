@@ -1,23 +1,18 @@
 <template>
   <div id="app">
-      <!--
-    <Card :card="card"/>
-
-    <MyHand :cards="cards"/>
-    <CardCol :cards="cardrs"/>
-
-    <MyHand :cards="cards"/>
-    <CardCol :cards="region1"/>
-    -->
-
-      <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
-      <MyHand :cards="players[0].hand"/>
-
       <div style="display: flex; flex-direction: row">
           <CardCol v-for="flag in players[0].flags"
                    :cards="flag"
                    :player="players[0]"/>
       </div>
+
+      <div style="display: flex; flex-direction: row; margin-top: 20px;">
+          <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
+          <MyHand :cards="players[0].hand" :player="players[0]"/>
+      </div>
+      <button @click="turnEnd">턴종료</button>
+
+
   </div>
 </template>
 
@@ -46,21 +41,22 @@ fullCardDumy =_.shuffle(fullCardDumy)
 
 
 export default {
-  name: 'app',
-  components: {
+    name: 'app',
+    components: {
     Card,
     CardDumy,
     MyHand,
     CardCol,
     draggable
-  },
-  data() {
+    },
+    data() {
       return {
           game : {
               turn : 0
           },
           players : [
               {
+                  id : "first",
                   isDraw : false,
                   action : 2,
                   state : "READY",
@@ -73,6 +69,7 @@ export default {
                   ]
               },
               {
+                  id : "second",
                   isDraw : true,
                   action : 0,
                   state : "DONE",
@@ -110,7 +107,37 @@ export default {
           region3 : [],
           region4 : []
       }
-  }
+    },
+    created () {
+        this.$on('turnStart', (player) => {
+            alert(`hello ${player.id}`)
+        })
+
+        this.$on('turnEnd', (player) => {
+            player.state = "DONE"
+            const playerIdx = _.findIndex(this.players, (p) => p.id === player.id)
+
+            let nextPlayerIdx = 0;
+            if (playerIdx + 1 < this.players.length) {
+                nextPlayerIdx = playerIdx + 1
+            }
+
+            this.players[nextPlayerIdx].state = "READY"
+            this.players[nextPlayerIdx].isDraw = false
+            this.players[nextPlayerIdx].action = 2
+
+            this.$emit('turnStart', this.players[nextPlayerIdx])
+        })
+    },
+    methods : {
+        turnEnd() {
+            const isOk = confirm("턴을 종료 하시겠습니까??")
+            if (isOk) {
+                this.$emit('turnEnd', this.players[0])
+            }
+        }
+    }
+
 }
 </script>
 
