@@ -1,9 +1,10 @@
 <template>
     <drag class="card" :key="card.id" :style="position"
+          :draggable="isMyTurn"
           :transfer-data="{ item: card, list: parent}">
 
-        <CardTitle v-if="card.state == 'front'" :title="card.name"/>
-        <CardImgBig v-if="card.state == 'front'" :imgUrl="card.imgUrl"/>
+        <CardTitle class="noselect" v-if="card.state == 'front'" :title="card.name"/>
+        <CardImgBig class="noselect" v-if="card.state == 'front'" :imgUrl="card.imgUrl"/>
 
     </drag>
 </template>
@@ -19,7 +20,9 @@
             card: Object,
             index : Number,
             position : Object,
-            parent : Array
+            parent : Array,
+            isMyTurn : Boolean
+
         },
         components : {
             CardTitle,
@@ -41,5 +44,14 @@
     height: 190px;
     background-color: cornflowerblue;
     border: 1px solid black;
+  }
+  .noselect {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
   }
 </style>

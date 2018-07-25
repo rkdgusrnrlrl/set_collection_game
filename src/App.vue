@@ -1,25 +1,18 @@
 <template>
   <div id="app">
-      <!--
-    <Card :card="card"/>
-
-    <MyHand :cards="cards"/>
-    <CardCol :cards="cardrs"/>
-
-    <MyHand :cards="cards"/>
-    <CardCol :cards="region1"/>
-    -->
-
-      <CardDumy :cardSpace="myhand" :cardDumy="dumy" :player="player"/>
-      <MyHand :cards="myhand"/>
-
       <div style="display: flex; flex-direction: row">
-          <CardCol :cards="region1" :player="player"/>
-          <CardCol :cards="region2" :player="player"/>
-          <CardCol :cards="region3" :player="player"/>
-          <CardCol :cards="region4" :player="player"/>
+          <CardCol v-for="flag in players[0].flags"
+                   :cards="flag"
+                   :player="players[0]"/>
       </div>
-  </div>
+
+      <div style="display: flex; flex-direction: row; margin-top: 20px;">
+          <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
+          <MyHand :cards="players[0].hand" :player="players[0]"/>
+      </div>
+      <button @click="turnEnd(players[0])">자신 턴종료</button>
+      <button @click="turnEnd(players[1])">상대방 턴종료</button>
+      </div>
 </template>
 
 <script>
@@ -47,20 +40,47 @@ fullCardDumy =_.shuffle(fullCardDumy)
 
 
 export default {
-  name: 'app',
-  components: {
+    name: 'app',
+    components: {
     Card,
     CardDumy,
     MyHand,
     CardCol,
     draggable
-  },
-  data() {
+    },
+    data() {
       return {
-          player : {
-              isDraw : false,
-              action : 2
+          game : {
+              turn : 0
           },
+          players : [
+              {
+                  id : "first",
+                  isDraw : false,
+                  action : 2,
+                  state : "READY",
+                  hand : [],
+                  flags : [
+                      [],
+                      [],
+                      [],
+                      []
+                  ]
+              },
+              {
+                  id : "second",
+                  isDraw : true,
+                  action : 0,
+                  state : "DONE",
+                  hand : [],
+                  flags : [
+                      [],
+                      [],
+                      [],
+                      []
+                  ]
+              }
+          ],
           cards : [
               {name:"Joao", id:6, imgUrl : "img"},
               {name:"Joao", id:7, imgUrl : "img"},
@@ -86,7 +106,44 @@ export default {
           region3 : [],
           region4 : []
       }
-  }
+    },
+    created () {
+        this.$on('turnStart', (player) => {
+            if (player.id === this.players[0].id) {
+                alert(`이제 당신 턴입니다.`)
+            }
+        })
+
+        this.$on('turnEnd', (player) => {
+            player.state = "DONE"
+            const playerIdx = _.findIndex(this.players, (p) => p.id === player.id)
+
+            let nextPlayerIdx = 0;
+            if (playerIdx + 1 < this.players.length) {
+                nextPlayerIdx = playerIdx + 1
+            }
+
+            this.players[nextPlayerIdx].state = "READY"
+            this.players[nextPlayerIdx].isDraw = false
+            this.players[nextPlayerIdx].action = 2
+
+            this.$emit('turnStart', this.players[nextPlayerIdx])
+        })
+    },
+    methods : {
+        turnEnd(player) {
+            if (player.state !== "READY") {
+                alert("다른 사람 턴입니다.")
+                return
+            }
+
+            const isOk = confirm("턴을 종료 하시겠습니까??")
+            if (isOk) {
+                this.$emit('turnEnd', player)
+            }
+        }
+    }
+
 }
 </script>
 
