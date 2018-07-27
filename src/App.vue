@@ -1,5 +1,17 @@
 <template>
   <div id="app">
+      <MyHand :cards="players[1].hand" :player="players[1]"/>
+      <div style="display: flex; flex-direction: row">
+          <CardCol v-for="flag in players[1].flags"
+                   :cards="flag"
+                   :player="players[1]"/>
+      </div>
+      <div style="display: flex; flex-direction: row">
+          <Card :card="{name : '1 flag'}" style="margin: 9px"/>
+          <Card :card="{name : '2 flag'}" style="margin: 9px"/>
+          <Card :card="{name : '3 flag'}" style="margin: 9px"/>
+          <Card :card="{name : '4 flag'}" style="margin: 9px"/>
+      </div>
       <div style="display: flex; flex-direction: row">
           <CardCol v-for="flag in players[0].flags"
                    :cards="flag"
@@ -7,7 +19,7 @@
       </div>
 
       <div style="display: flex; flex-direction: row; margin-top: 20px;">
-          <CardDumy :cardSpace="players[0].hand" :cardDumy="dumy" :player="players[0]"/>
+          <CardDumy :cardSpace="currentPlayer.hand" :cardDumy="dumy" :player="currentPlayer"/>
           <MyHand :cards="players[0].hand" :player="players[0]"/>
       </div>
       <button @click="turnEnd(players[0])">자신 턴종료</button>
@@ -53,6 +65,7 @@ export default {
           game : {
               turn : 0
           },
+          currentPlayer : {},
           players : [
               {
                   id : "first",
@@ -108,6 +121,8 @@ export default {
       }
     },
     created () {
+        this.currentPlayer = this.players[0];
+
         this.$on('turnStart', (player) => {
             if (player.id === this.players[0].id) {
                 alert(`이제 당신 턴입니다.`)
@@ -126,6 +141,7 @@ export default {
             this.players[nextPlayerIdx].state = "READY"
             this.players[nextPlayerIdx].isDraw = false
             this.players[nextPlayerIdx].action = 2
+            this.currentPlayer = this.players[nextPlayerIdx]
 
             this.$emit('turnStart', this.players[nextPlayerIdx])
         })
