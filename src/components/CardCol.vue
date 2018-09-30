@@ -31,30 +31,15 @@
             drop(toList, data) {
                 const fromList = data.list;
 
-                let state = prompt("카드 상태?")
-
                 if (fromList) {
-                    //앞 : front, 뒤 back
-                    if (state === "front") {
-                        if (this.player.action >= 1) {
-                            const card = _.assignIn({}, data.item, {state});
-                            toList.push(card);
-                            fromList.splice(fromList.indexOf(data.item), 1);
-                            toList.sort((a, b) => a > b);
-                            this.player.action -= 1
-                        } else {
-                            alert(`남은 액션이 부족합니다.(남은 액션 : ${this.player.action})`)
-                        }
-                    } else if (state === "back") {
-                        if (this.player.action >= 2) {
-                            const card = _.assignIn({}, data.item, {state});
-                            toList.push(card);
-                            fromList.splice(fromList.indexOf(data.item), 1);
-                            toList.sort((a, b) => a > b);
-                            this.player.action -= 2
-                        } else {
-                            alert(`남은 액션이 부족합니다.(남은 액션 : ${this.player.action})`)
-                        }
+                    if (this.player.action >= 1) {
+                        const card = _.assignIn({}, data.item, {state : 'front'});
+                        toList.push(card);
+                        fromList.splice(fromList.indexOf(data.item), 1);
+                        toList.sort((a, b) => a > b);
+                        this.player.action -= 1
+                    } else {
+                        alert(`남은 액션이 부족합니다.(남은 액션 : ${this.player.action})`)
                     }
                 }
             }
